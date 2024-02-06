@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react';
+import React, { useImperativeHandle,useState } from 'react';
 import {
     Image,
     SafeAreaView,
@@ -14,6 +14,7 @@ import {
     findNodeHandle,
     Button,
   } from 'react-native';
+  import Evaluacion from '../components/evaluacion/evaluacion';
 
 const Perfil_jc= ({navigation}) =>{
 
@@ -21,11 +22,35 @@ const Perfil_jc= ({navigation}) =>{
     navigation.navigate('Home');
   };
 
+  const [calificacion, setCalificacion]= useState(0);
+
+  const handleCalificacionChanged=(valor:number)=>{
+    if(calificacion==0.5 && valor==0.5){
+      setCalificacion(0)
+    }else if(calificacion<=1 && valor <=1){
+      setCalificacion(1)
+    }else if(calificacion==1.5 && valor==1.5){
+      setCalificacion(2)
+    }else if(calificacion==2.5 && valor==2.5){
+      setCalificacion(3)
+    }else if(calificacion==3.5 && valor==3.5){
+      setCalificacion(4)
+    }else if(calificacion==4.5 && valor==4.5){
+      setCalificacion(5)
+    }else{
+      setCalificacion(valor)
+    }
+    console.log(valor)
+  }
+
     return (
         <SafeAreaView style={styles.fondo}>
           <ScrollView contentContainerStyle={styles.SVcontenedor} contentInsetAdjustmentBehavior='automatic'>
             <Text style={styles.encabezado}>Perfil</Text>
             <Image style={styles.fotoperfil} source={require('../imagenes/johncena.jpg')}></Image>
+            <Evaluacion
+            calificacion={calificacion} onCalificacionChange={handleCalificacionChanged} 
+            />
     
             <Text style={styles.info}>John Felix Anthony Cena</Text>
             <Text style={styles.info}>23 de abril de 1977 (edad 46 años)</Text>
